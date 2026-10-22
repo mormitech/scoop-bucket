@@ -21,6 +21,7 @@
         "sh.Run \"\"\"$current\\mctwain-tray.exe\"\"\", 0, False",
         "\"@",
         "Set-Content -Path (Join-Path $target 'start.vbs') -Value $vbs -Encoding ASCII",
+        "if (-not (Test-Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run')) { New-Item -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run' | Out-Null }",
         "Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run' -Name 'mctwain' -Value ('wscript.exe \"' + (Join-Path $target 'start.vbs') + '\"')",
         "Start-Process wscript.exe -ArgumentList ('\"' + (Join-Path $target 'start.vbs') + '\"')"
     ],
