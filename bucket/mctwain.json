@@ -1,0 +1,40 @@
+{
+    "version": "0.4.0",
+    "description": "Local helper that lets web pages scan documents from network scanners (eSCL/AirScan), with a tray icon",
+    "homepage": "https://github.com/mormitech/mctwain",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/mormitech/mctwain/releases/download/v0.4.0/mctwain-bin-0.4.0-windows-x64.zip",
+            "hash": "01baf78867da7fd42508e94df9a8522f392f49b0ef0f65a6ccca2e10dc7c751a"
+        }
+    },
+    "bin": "mctwain.exe",
+    "post_install": [
+        "# Scoop keeps the current version in ...\\apps\\mctwain\\current",
+        "$current = Join-Path (Split-Path $dir -Parent) 'current'",
+        "$target = Join-Path $env:LOCALAPPDATA 'mctwain'",
+        "New-Item -ItemType Directory -Force -Path $target | Out-Null",
+        "$vbs = @\"",
+        "Set sh = CreateObject(\"WScript.Shell\")",
+        "sh.Run \"\"\"$current\\mctwain.exe\"\"\", 0, False",
+        "sh.Run \"\"\"$current\\mctwain-tray.exe\"\"\", 0, False",
+        "\"@",
+        "Set-Content -Path (Join-Path $target 'start.vbs') -Value $vbs -Encoding ASCII",
+        "Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run' -Name 'mctwain' -Value ('wscript.exe \"' + (Join-Path $target 'start.vbs') + '\"')",
+        "Start-Process wscript.exe -ArgumentList ('\"' + (Join-Path $target 'start.vbs') + '\"')"
+    ],
+    "pre_uninstall": [
+        "Get-Process -Name mctwain, mctwain-tray -ErrorAction SilentlyContinue | Stop-Process -Force",
+        "Remove-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run' -Name 'mctwain' -ErrorAction SilentlyContinue",
+        "Remove-Item -Recurse -Force (Join-Path $env:LOCALAPPDATA 'mctwain') -ErrorAction SilentlyContinue"
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mormitech/mctwain/releases/download/v$version/mctwain-bin-$version-windows-x64.zip"
+            }
+        }
+    }
+}
