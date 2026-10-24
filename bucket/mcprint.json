@@ -1,12 +1,12 @@
 {
-    "version": "0.7.1",
+    "version": "0.8.0",
     "description": "Scan pages of documents from network scanners (eSCL / AirScan) into one PDF",
     "homepage": "https://github.com/mormitech/mcprint",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/mormitech/mcprint/releases/download/v0.7.1/mcprint-0.7.1-windows-x64.zip",
-            "hash": "2e7324724e5f0b624ef4a19fca90c962ecdb644f896b569bb2d45b6c7a32a591"
+            "url": "https://github.com/mormitech/mcprint/releases/download/v0.8.0/mcprint-0.8.0-windows-x64.zip",
+            "hash": "a5d89e549543dc1e9fc2eb72f5bb03b3a64efbaadbd5181ea7fa847c47965a3a"
         }
     },
     "bin": "mcprint.exe",
