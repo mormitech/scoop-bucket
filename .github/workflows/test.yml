@@ -69,3 +69,35 @@ jobs:
           if (Get-Command mcprint -ErrorAction SilentlyContinue) { throw 'command still there' }
           if (Test-Path "$env:USERPROFILE\scoop\apps\mcprint") { throw 'app folder left' }
           Write-Host 'install and uninstall both work'
+
+  mcdiskfree:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Scoop
+        shell: pwsh
+        run: |
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          Join-Path (Resolve-Path ~).Path 'scoop\shims' | Out-File $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Install mcdiskfree from this bucket
+        shell: pwsh
+        run: scoop install .\bucket\mcdiskfree.json
+      - name: It is installed, with a Start menu entry, and it starts
+        shell: pwsh
+        run: |
+          $exe = (Get-Command mcdiskfree).Source
+          Write-Host "mcdiskfree command: $exe"
+          $lnk = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Scoop Apps\mcDiskFree.lnk'
+          if (-not (Test-Path $lnk)) { throw 'no Start menu shortcut' }
+          $app = Start-Process $exe -PassThru
+          Start-Sleep -Seconds 10
+          if ($app.HasExited) { throw "mcdiskfree exited right after starting (exit code $($app.ExitCode))" }
+          Write-Host 'mcdiskfree is running'
+          Stop-Process -Id $app.Id -Force
+      - name: Uninstall removes everything
+        shell: pwsh
+        run: |
+          scoop uninstall mcdiskfree
+          if (Get-Command mcdiskfree -ErrorAction SilentlyContinue) { throw 'command still there' }
+          if (Test-Path "$env:USERPROFILE\scoop\apps\mcdiskfree") { throw 'app folder left' }
+          Write-Host 'install and uninstall both work'
