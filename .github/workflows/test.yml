@@ -70,7 +70,7 @@ jobs:
           if (Test-Path "$env:USERPROFILE\scoop\apps\mcprint") { throw 'app folder left' }
           Write-Host 'install and uninstall both work'
 
-  mcdiskfree:
+  mormidiskfree:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -79,25 +79,25 @@ jobs:
         run: |
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           Join-Path (Resolve-Path ~).Path 'scoop\shims' | Out-File $env:GITHUB_PATH -Encoding utf8 -Append
-      - name: Install mcdiskfree from this bucket
+      - name: Install mormidiskfree from this bucket
         shell: pwsh
-        run: scoop install .\bucket\mcdiskfree.json
+        run: scoop install .\bucket\mormidiskfree.json
       - name: It is installed, with a Start menu entry, and it starts
         shell: pwsh
         run: |
-          $exe = (Get-Command mcdiskfree).Source
-          Write-Host "mcdiskfree command: $exe"
-          $lnk = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Scoop Apps\mcDiskFree.lnk'
+          $exe = (Get-Command mormidiskfree).Source
+          Write-Host "mormidiskfree command: $exe"
+          $lnk = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Scoop Apps\mormiDiskFree.lnk'
           if (-not (Test-Path $lnk)) { throw 'no Start menu shortcut' }
           $app = Start-Process $exe -PassThru
           Start-Sleep -Seconds 10
-          if ($app.HasExited) { throw "mcdiskfree exited right after starting (exit code $($app.ExitCode))" }
-          Write-Host 'mcdiskfree is running'
+          if ($app.HasExited) { throw "mormidiskfree exited right after starting (exit code $($app.ExitCode))" }
+          Write-Host 'mormidiskfree is running'
           Stop-Process -Id $app.Id -Force
       - name: Uninstall removes everything
         shell: pwsh
         run: |
-          scoop uninstall mcdiskfree
-          if (Get-Command mcdiskfree -ErrorAction SilentlyContinue) { throw 'command still there' }
-          if (Test-Path "$env:USERPROFILE\scoop\apps\mcdiskfree") { throw 'app folder left' }
+          scoop uninstall mormidiskfree
+          if (Get-Command mormidiskfree -ErrorAction SilentlyContinue) { throw 'command still there' }
+          if (Test-Path "$env:USERPROFILE\scoop\apps\mormidiskfree") { throw 'app folder left' }
           Write-Host 'install and uninstall both work'
