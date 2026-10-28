@@ -1,0 +1,27 @@
+{
+    "version": "0.8.2",
+    "description": "Scan pages of documents from network scanners (eSCL / AirScan) into one PDF",
+    "homepage": "https://github.com/mormitech/mormiprint",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/mormitech/mormiprint/releases/download/v0.8.2/mormiprint-0.8.2-windows-x64.zip",
+            "hash": "7edff227b10b4d24901da2fe445b1ebebf9b156e2863c2593442f27e6ef40e7f"
+        }
+    },
+    "bin": "mormiprint.exe",
+    "shortcuts": [
+        [
+            "mormiprint.exe",
+            "mormiPrint"
+        ]
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mormitech/mormiprint/releases/download/v$version/mormiprint-$version-windows-x64.zip"
+            }
+        }
+    }
+}
