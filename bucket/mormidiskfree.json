@@ -1,12 +1,12 @@
 {
-    "version": "0.8.1",
+    "version": "0.8.2",
     "description": "Disk space and disk usage analyzer with an interactive sunburst chart",
     "homepage": "https://github.com/mormitech/mormidiskfree",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/mormitech/mormidiskfree/releases/download/v0.8.1/mormidiskfree-0.8.1-windows-x64.zip",
-            "hash": "065b53465055220bcbf03f3daa46284212a887c842ff38869e1385c64126446d"
+            "url": "https://github.com/mormitech/mormidiskfree/releases/download/v0.8.2/mormidiskfree-0.8.2-windows-x64.zip",
+            "hash": "e6dac4c3cb7895cb7b3883041307824a6b84e2d1a6ce1292a4a776ba5e780e62"
         }
     },
     "bin": "mormidiskfree.exe",
