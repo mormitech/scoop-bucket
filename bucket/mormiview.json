@@ -1,12 +1,12 @@
 {
-    "version": "0.54.0",
+    "version": "0.57.1",
     "description": "Picture viewer and small editor with GIF frames and a chat for Claude",
     "homepage": "https://github.com/mormitech/mormiview",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/mormitech/mormiview/releases/download/v0.54.0/mormiview-0.54.0-windows-x64.zip",
-            "hash": "8b051b1eb452f0db41be5e6c4bf1729e017088c39efa942a339ba22fcf06a338"
+            "url": "https://github.com/mormitech/mormiview/releases/download/v0.57.1/mormiview-0.57.1-windows-x64.zip",
+            "hash": "5094d1b26a7d8199f1ec6b48dd18b3655333c6b0ceb9bd9d6e1aed6de27c12bc"
         }
     },
     "bin": "mormiview.exe",
